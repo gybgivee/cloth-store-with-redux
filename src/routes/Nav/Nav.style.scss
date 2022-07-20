@@ -4,11 +4,14 @@
     display: flex;
     justify-content: space-between;
     margin-bottom: 25px;
-  
+    
     .logo-container {
       height: 100%;
       width: 70px;
       padding: 25px;
+      .logo{
+        filter: invert(69%) sepia(60%) saturate(5713%) hue-rotate(352deg) brightness(96%) contrast(94%);
+      }
     }
   
     .nav-links-container {
