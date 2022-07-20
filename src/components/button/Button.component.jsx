@@ -1,7 +1,7 @@
 import "./Button.style.scss"
 const Button =(props)=>{
     //innerText is called children in react
-    const {buttonType,children,...theRestProps} = props;
+    const {buttonType="",children,...theRestProps} = props;
     console.log('innerText',children);
     console.log('buttonType',buttonType);
     console.log('theRestProps',theRestProps);
