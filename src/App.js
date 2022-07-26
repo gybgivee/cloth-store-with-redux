@@ -2,10 +2,7 @@ import Home from "./routes/home/Home.component"
 import Nav from "./routes/nav/Nav.component"
 import { Routes, Route } from 'react-router-dom';
 import Authentication from "./routes/authentication/Authentication.component";
-const Shop =()=>{
-  return <h1>I am the shop page</h1>
-}
-
+import Shop from "./routes/shop/Shop.component";
 function App() {
 // Route index => A child route with no path that renders in the parent's outlet
   return (

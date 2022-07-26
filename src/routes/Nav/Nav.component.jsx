@@ -1,7 +1,7 @@
 import { Link, Outlet } from "react-router-dom"
 import { Fragment, useContext } from "react"
 import { ReactComponent as CrownLogo } from "../../assets/crown.svg"
-import { UserContext } from "../../contexts/user.context"
+import { UserContext } from "../../contexts/User.context"
 import {signOutUser} from "../../utilities/firebase/firebase.utils"
 import "./Nav.style.scss"
 const Nav = () => {
