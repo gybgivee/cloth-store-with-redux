@@ -7,7 +7,7 @@ const Shop =()=>{
 }
 
 function App() {
-
+// Route index => A child route with no path that renders in the parent's outlet
   return (
     <Routes>
       <Route  path='/' element={<Nav />}>
