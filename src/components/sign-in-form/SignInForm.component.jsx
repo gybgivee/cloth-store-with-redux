@@ -1,10 +1,9 @@
-import { auth,signInAuthUserWithEmailAndPassword  ,signInWithGooglePopup, signInWithGoogleRedirect, createUserDocumentFromAuth } from "../../utilities/firebase/firebase.utils"
-import { getRedirectResult } from "firebase/auth";
-import { useState, useEffect } from "react";
+import { signInAuthUserWithEmailAndPassword, signInWithGooglePopup } from "../../utilities/firebase/firebase.utils"
+import { useState} from "react";
+import {useContext} from "react";
 import FormInput from "../form-input/FormInput.component";
 import './SignInForm.style.scss'
 import Button from "../button/Button.component";
-
 const SignInForm = () => {
     const defaultFromField = {
         email: '',
@@ -13,6 +12,7 @@ const SignInForm = () => {
     const [formFields, setFormFields] = useState(defaultFromField);
 
     const { email, password } = formFields;
+ 
     const resetFormFields = () => {
         setFormFields(defaultFromField);
     }
@@ -22,13 +22,20 @@ const SignInForm = () => {
         try {
             const response = await signInAuthUserWithEmailAndPassword(email, password);
             console.log('response', response);
-            resetFormFields(); 
+         
+            resetFormFields();
         } catch (error) {
-            console.error('User creation encountered error', error.code);
+            switch (error.code) {
+                //could separate error message to different file,json 
+                case "auth/wrong-password": alert("Incorrect Password for email"); break;
+                case "auth/user-not-found": alert("No user associate with this ena"); break;
+                default: console.log(error);
+            }
         }
 
     }
     /*
+    import signInWithGoogleRedirect ,useEffect,auth
     this is using with the signInWithGoogleRedirect => use effect becuase it need result back
     useEffect(() => {
         const asyncFn = async () => {
@@ -41,16 +48,15 @@ const SignInForm = () => {
     }, []);
     */
     const signInWithGoogle = async () => {
-        const { user } = await signInWithGooglePopup();
-        //create the user and store it in DB from function in firebase.js
-        const userDocRef = await createUserDocumentFromAuth(user);
+        await signInWithGooglePopup();
+        
     }
 
     const handleChange = (event) => {
         const { name, value } = event.target;
         //only update name to value
         setFormFields({ ...formFields, [name]: value })
-        
+
     }
     return (
         <div className="sign-in-container">
@@ -68,7 +74,7 @@ const SignInForm = () => {
                 />
                 <div className="container">
                     <Button type="submit">SIGN IN</Button>
-                    <Button buttonType="google" onClick={signInWithGoogle}>Google Sign in</Button>
+                    <Button type="button" buttonType="google" onClick={signInWithGoogle}>Google Sign in</Button>
                 </div>
             </form>
 

@@ -1,5 +1,5 @@
-import Home from "./routes/Home/Home.component"
-import Nav from "./routes/Nav/Nav.component"
+import Home from "./routes/home/Home.component"
+import Nav from "./routes/nav/Nav.component"
 import { Routes, Route } from 'react-router-dom';
 import Authentication from "./routes/authentication/Authentication.component";
 const Shop =()=>{
