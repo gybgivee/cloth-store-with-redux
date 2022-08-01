@@ -1,6 +1,5 @@
 import "./ProductCard.style.scss"
-import Button from "../button/Button.component"
-import { UserContext } from "../../contexts/User.context";
+import Button from "../button/Button.component";
 import { CartContext } from "../../contexts/Cart.context";
 import { useContext } from "react";
 
