@@ -6,11 +6,12 @@ import Shop from "./routes/shop/Shop.component";
 import Checkout from "./components/check-out/Checkout.component";
 function App() {
 // Route index => A child route with no path that renders in the parent's outlet
+//with shop/* : anything start with /shop/ will go to shop exp. shop/hats, shop/jeans
   return (
     <Routes>
       <Route  path='/' element={<Nav />}>
         <Route index element={<Home />}/>
-        <Route path='shop' element={<Shop />}/>
+        <Route path='shop/*' element={<Shop />}/>
         <Route path='auth' element={<Authentication />}/>
         <Route path='checkout' element={<Checkout />}/>
       </Route>
