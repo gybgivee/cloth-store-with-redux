@@ -16,7 +16,7 @@ export const USER_ACTION_TYPE = {
     SET_CURRENT_USER: "SET_CURRENT_USER",
 }
 const userDataReducer = (state, action) =>{
-    const {type,payload} = action;;
+    const {type,payload} = action;
     switch(type){
         case 'SET_CURRENT_USER': 
         return {
