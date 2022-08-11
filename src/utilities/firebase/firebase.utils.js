@@ -46,6 +46,7 @@ export const signInWithGooglePopup = () => signInWithPopup(auth, googleProvider)
 export const signInWithGoogleRedirect = () => signInWithRedirect(auth, googleProvider);
 //create DB
 export const db = getFirestore();
+
 export const createUserDocumentFromAuth = async (userAuth, additionalInfo = {}) => {
   //checking the exsitng of this object
   const userDocRef = doc(db, 'users', userAuth.uid);
@@ -69,7 +70,7 @@ export const createUserDocumentFromAuth = async (userAuth, additionalInfo = {}) 
     }
   }
 
-  return userDocRef;
+  return userSnapshot;
 }
 
 export const createAuthUserWithEmailAndPassword = async (email, password) => {
@@ -83,7 +84,7 @@ export const signInAuthUserWithEmailAndPassword = async (email, password) => {
 }
 export const signOutUser = async () => await signOut(auth);
 
-export const onAuthStateChangedListener = (callback)=>onAuthStateChanged(auth,callback);
+export const onAuthStateChangedListener = (callback) => onAuthStateChanged(auth, callback);
 /* onAuthStateChanged(auth,callback) =>  onAuthStateChanged(auth,callback,errorCallback,completeCallback)
 auth listener observe pattern
 1.next after subsribe call this call back
@@ -92,21 +93,21 @@ auth listener observe pattern
  */
 
 //add collection => collectionKey : collection name/objectToAdd : object in db; could have another argument field,field='title'
-export const addCollectionAndDocuments = async (collectionKey,objectsToAdd) => {
+export const addCollectionAndDocuments = async (collectionKey, objectsToAdd) => {
   const batch = writeBatch(db);
   const collectionRef = collection(db, collectionKey);
-  
+
   objectsToAdd.forEach((object) => {
     //in this case we want title to be a name of the each table or could do like this object[field]
-     const docRef = doc(collectionRef, object.title.toLowerCase());
-     batch.set(docRef, object);
+    const docRef = doc(collectionRef, object.title.toLowerCase());
+    batch.set(docRef, object);
   });
 
   await batch.commit();
   console.log('done');
 };
 
-export const getCategoriesAndDocuments = async () =>{
+export const getCategoriesAndDocuments = async () => {
   //need to be the same key when setting add colections
   const collectionRef = collection(db, 'categories');
   const getQuery = query(collectionRef);
@@ -114,5 +115,15 @@ export const getCategoriesAndDocuments = async () =>{
   const querySnapshot = await getDocs(getQuery);
   return querySnapshot.docs.map(docsSnapshot => docsSnapshot.data());
 
- 
+}
+
+export const getCurrentUser = () => {
+  return new Promise((resolve, reject) => {
+    //resolve
+    const unsubscribe = onAuthStateChanged(auth, (userAuth) => {
+      unsubscribe();
+      resolve(userAuth);
+    },reject)
+
+  });
 }

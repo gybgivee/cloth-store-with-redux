@@ -6,7 +6,7 @@ const FormInput = ({ label, ...theRestProps }) => {
             <input className="form-input" {...theRestProps} />
             {label && //if label exist render the label
                 (
-                    <lable className={`${theRestProps.value.length ? 'shrink' : ''}form-input-label`}>{label}</lable>
+                    <label className={`${theRestProps.value.length ? 'shrink' : ''}form-input-label`}>{label}</label>
                 )
             }
 

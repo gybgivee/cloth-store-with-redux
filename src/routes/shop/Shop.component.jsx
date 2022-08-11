@@ -4,7 +4,7 @@ import "./Shop.style.scss";
 import Category from "../../routes/category/Category.component";
 import CategoriesPreview from "../categories-preview/CategoriesPreview.component";
 import { useEffect } from "react";
-import { fetchCategoriesAsync } from "../../store/categories/Categories.reducer";
+import { fetchCategoriesStart } from "../../store/categories/Categories.reducer";
 const Shop = () => {
     const dispatch = useDispatch();
     useEffect(()=>{
@@ -15,7 +15,7 @@ const Shop = () => {
         //    dispatch(setCategories(categoriesArray));
         //}
         //getCategoriesMap();
-        dispatch(fetchCategoriesAsync());
+        dispatch(fetchCategoriesStart());
      
     },[])
     return (

@@ -1,10 +1,12 @@
-import { useState, useEffect } from "react";
-import { createAuthUserWithEmailAndPassword, createUserDocumentFromAuth } from "../../utilities/firebase/firebase.utils"
+import { useState } from "react";
+import { useDispatch } from "react-redux";
 import FormInput from "../form-input/FormInput.component";
 import "./SignUpForm.style.scss"
 import Button from "../button/Button.component";
+import { signUpStart } from "../../store/user/User.reducer";
 
 const SignUpForm = () => {
+    const dispatch = useDispatch();
     const defaultFromField = {
         displayName: '',
         email: '',
@@ -25,9 +27,9 @@ const SignUpForm = () => {
             return;
         }
         try {
-            const { user } = await createAuthUserWithEmailAndPassword(email, password);
-         
-            await createUserDocumentFromAuth(user, { displayName });
+            dispatch(signUpStart(email, password, displayName));
+            //const { user } = await createAuthUserWithEmailAndPassword(email, password);
+            //await createUserDocumentFromAuth(user, { displayName });
             resetFormFields();
         } catch (error) {
             console.error('User creation encountered error', error.code);
