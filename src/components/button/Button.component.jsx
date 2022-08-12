@@ -1,32 +1,31 @@
-import {
-    BaseButton,
-    GoogleSignInButton,
-    InvertedButton,
-    LoadingSpinner,
-  } from "./Button.style";
-  
+import './Button.style.scss'
+import {Spinner} from '../spinner/Spinner.component'
 export const BUTTON_TYPE_CLASSES = {
-    base: "base",
-    google: "google-sign-in",
-    inverted: "inverted",
+  base: "base",
+  google: "google-sign-in",
+  inverted: "inverted",
 };
-
+/*
 const getButton = (buttonType = BUTTON_TYPE_CLASSES.base) =>
 ({
-    [BUTTON_TYPE_CLASSES.base]: BaseButton,
-    [BUTTON_TYPE_CLASSES.google]: GoogleSignInButton,
-    [BUTTON_TYPE_CLASSES.inverted]: InvertedButton,
-}[buttonType]);
+  [BUTTON_TYPE_CLASSES.base]: BaseButton,
+  [BUTTON_TYPE_CLASSES.google]: GoogleSignInButton,
+  [BUTTON_TYPE_CLASSES.inverted]: InvertedButton,
+}[buttonType]);*/
+
 const Button = ({ children, buttonType, isLoading = false, ...otherProps }) => {
-    const CustomButton = getButton(buttonType);
-    return (
-      <CustomButton disabled={isLoading} {...otherProps}>
-        {isLoading ? <LoadingSpinner /> : children}
-      </CustomButton>
-    );
-  };
-  
-  export default Button;
+ 
+  return (
+    <button disabled={isLoading}  className={`button-container ${ BUTTON_TYPE_CLASSES[buttonType]}`}{...otherProps}>
+    {isLoading ? <Spinner /> : children}
+      </button>
+   
+  );
+};
+
+export default Button;
+
+
 /*
 const Button = (props) => {
     //innerText is called children in react
